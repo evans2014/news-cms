@@ -19,7 +19,7 @@
                 <textarea
                         name="content"
                         id="tinymce-editor"
-                        class="form-control d-none"
+                        class="form-control"
                 >{{ old('content', $page->content ?? '') }}</textarea>
             </div>
             <button type="submit" class="btn btn-success">Създай</button>
@@ -28,13 +28,13 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // Унищожи стария редактор, ако съществува
-        if (tinymce.get('tinymce-editor')) {
+
+       if (tinymce.get('tinymce-editor')) {
           tinymce.remove('#tinymce-editor');
         }
 
         tinymce.init({
-          selector: '#tinymce-editor',
+          selector: 'textarea#tinymce-editor',
           height: 500,
           menubar: true,
           plugins: [

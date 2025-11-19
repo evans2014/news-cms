@@ -32,7 +32,7 @@
         }
 
         tinymce.init({
-          selector: '#tinymce-editor',
+          selector: 'textarea#tinymce-editor',
           height: 500,
           menubar: true,
           plugins: 'link image lists table code media fullscreen',

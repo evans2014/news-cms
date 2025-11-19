@@ -21,18 +21,18 @@ class PageController extends Controller
     }
 
 
-    public function store(Request $request)
+  /*  public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
             'slug'  => 'required|string|unique:pages,slug|max:255',
-            'content' => 'nullable|string', // ← NULLABLE!
+            'content' => 'nullable|string',
         ]);
 
         Page::create([
             'title'   => $request->title,
             'slug'    => $request->slug,
-            'content' => $request->content ?? '', // ← ГАРАНТИРАНО НЕ Е NULL
+            'content' => $request->content ?? '',
         ]);
 
         return redirect()->route('admin.pages.index')->with('success', 'Страницата е създадена!');
@@ -53,6 +53,32 @@ class PageController extends Controller
         ]);
 
         return redirect()->route('admin.pages.index')->with('success', 'Страницата е обновена!');
+    }*/
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title'   => 'required|string|max:255',
+            'slug'    => 'required|string|unique:pages,slug',
+            'content' => 'required|string',   // ← задължително!
+        ]);
+
+        Page::create($validated);   // ← всичко (вкл. content) се записва автоматично
+
+        return redirect()->route('admin.pages.index')->with('success', 'Страницата е създадена!');
+    }
+
+    public function update(Request $request, Page $page)
+    {
+        $validated = $request->validate([
+            'title'   => 'required|string|max:255',
+            'slug'    => 'required|string|unique:pages,slug,' . $page->id,
+            'content' => 'required|string',
+        ]);
+
+        $page->update($validated);
+
+        return back()->with('success', 'Страницата е обновена!');
     }
 
     public function edit(Page $page)
