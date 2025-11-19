@@ -26,7 +26,6 @@ class News extends Model
         parent::boot();
 
         static::saving(function ($news) {
-            // Записваме заглавието и описанието с малки букви
             $news->title = mb_convert_case($news->title, MB_CASE_TITLE, "UTF-8");
             $news->title_lower = mb_strtolower($news->title, 'UTF-8');
             $news->description_lower = mb_strtolower($news->description ?? '', 'UTF-8');

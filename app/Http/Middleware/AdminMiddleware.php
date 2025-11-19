@@ -10,7 +10,6 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        //dd('AdminMiddleware works!', $request->user());
 
         if (!Auth::check() || !Auth::user()->is_admin) {
             return redirect('/')->with('error', 'Нямате достъп!');

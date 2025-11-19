@@ -3,12 +3,19 @@
 @section('content')
     <div class="container py-5">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+
+            <div class="col-lg-6 mx-auto">
                 <article class="card border-0 shadow-sm">
                     @if($news->image)
-                        <img src="{{ asset('storage/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}" style="max-height: 400px; object-fit: cover;">
+                        <img src="{{ asset('storage/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}" style="max-width: 400px;">
                     @endif
                     <div class="card-body p-4">
+                        <div class="col-6">
+
+                        </div>
+                        <div class="col-6">
+
+                        </div>
                         <div class="d-flex flex-wrap gap-2">
 
                             @if($news->categories->count())
@@ -33,6 +40,7 @@
                 </article>
             </div>
         </div>
+
 
         <div class="post-navigation mt-8">
             @if($previous)

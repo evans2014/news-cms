@@ -9,7 +9,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    // ЛОГИН ФОРМА
+
     public function showLogin()
     {
         if (Auth::check()) {
@@ -18,7 +18,7 @@ class AuthController extends Controller
         return view('admin');
     }
 
-    // ЛОГИН
+
     public function login(Request $request)
     {
         $request->validate([
@@ -43,7 +43,6 @@ class AuthController extends Controller
         ])->withInput();
     }
 
-    // ИЗХОД
     public function logout(Request $request)
     {
         Auth::logout();
@@ -52,7 +51,6 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    // РЕГИСТРАЦИЯ (по избор)
     public function showRegister()
     {
         return view('auth.register');

@@ -9,7 +9,6 @@ class Category extends Model
 {
     protected $fillable = ['name', 'slug', 'image'];
 
-    // АВТОМАТИЧЕН SLUG
     protected static function boot()
     {
         parent::boot();
@@ -25,7 +24,6 @@ class Category extends Model
         });
     }
 
-    // ВРЪЗКА С НОВИНИ – belongsToMany
     public function news()
     {
         return $this->belongsToMany(News::class, 'category_news');

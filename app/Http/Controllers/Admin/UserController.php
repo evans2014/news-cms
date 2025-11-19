@@ -61,25 +61,6 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-
-  /*  public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            //'password' => 'nullable|min:8|confirmed',
-            'is_admin' => 'boolean',
-        ]);
-
-        $data = $request->only('name', 'email', 'is_admin');
-        if ($request->filled('password')) {
-            $data['password'] = bcrypt($request->password);
-        }
-
-        $user->update($data);
-
-        return redirect()->route('admin.users.index')->with('success', 'Потребителят е обновен!');
-    }*/
     public function update(Request $request, User $user)
     {
         $request->validate([
@@ -96,7 +77,6 @@ class UserController extends Controller
             'is_admin' => $request->boolean('is_admin'),
         ];
 
-        // Само ако е попълнена парола – хешираме и записваме
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
@@ -106,46 +86,6 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')
             ->with('success', 'Потребителят е обновен успешно!');
     }
-    /*public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email,' . $user->id,
-            'is_admin' => 'sometimes|in:1,0', // или просто nullable
-        ]);
-
-        $user->update([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            // ← ТОВА Е КЛЮЧЪТ – винаги слагаме 1 или 0
-            'is_admin' => $request->has('is_admin') ? true : false,
-            // или още по-ясно:
-            // 'is_admin' => $request->boolean('is_admin'),
-        ]);
-
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Потребителят е обновен успешно!');
-    }*/
-
-    /*
-     * не update
-     * public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'is_admin' => 'sometimes|boolean',
-        ]);
-
-        $user->update([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'is_admin' => $request->has('is_admin') ? true : false,
-        ]);
-
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Потребителят е обновен успешно!');
-    }*/
 
     public function destroy(User $user)
     {
@@ -163,11 +103,7 @@ class UserController extends Controller
     }
     public function registerStore(Request $request)
     {
-       /* $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-        ]);*/
+
         $request->validate([
             'name'                  => 'required|string|max:255',
             'email'                 => 'required|email|unique:users,email',

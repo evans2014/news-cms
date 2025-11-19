@@ -17,7 +17,7 @@
     <div class="row">
 
         <!-- ЛЯВА КОЛОНА – АДМИН МЕНЮ -->
-        <aside class="col-lg-3 d-none d-lg-block bg-white shadow-sm p-4" style="min-height: 100vh; position: sticky; top: 0;">
+        <aside class="col-lg-2 d-none d-lg-block bg-white shadow-sm p-4" style="min-height: 100vh; position: sticky; top: 0;">
             <div class="d-flex align-items-center mb-4">
                 <i class="fas fa-user-shield text-primary me-2"></i>
                 <div>
@@ -64,7 +64,7 @@
         </aside>
 
         <!-- ГЛАВНО СЪДЪРЖАНИЕ – ДЯСНО -->
-        <main class="col-lg-9 px-md-4 py-4">
+        <main class="col-lg-10 px-md-4 py-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-primary">@yield('title')</h1>
                 <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-sm">
