@@ -20,3 +20,8 @@ ul.navbar-nav li {
 .next {
     float: right;
 }
+.middle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
