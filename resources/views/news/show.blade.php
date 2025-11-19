@@ -4,41 +4,36 @@
     <div class="container py-5">
         <div class="row">
 
-            <div class="col-lg-6 mx-auto">
-                <article class="card border-0 shadow-sm">
-                    @if($news->image)
-                        <img src="{{ asset('storage/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}" style="max-width: 400px;">
-                    @endif
-                    <div class="card-body p-4">
-                        <div class="col-6">
-
+            <div class="col-lg-12 mx-auto">
+                <div class="card card border-0 shadow-sm">
+                    <div class="row g-0">
+                        <div class="card-footer bg-white border-0 p-4">
+                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+                                ← Назад
+                            </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-12 text-center">
+                            <h1 class="card-title display-5 text-center mb-4">{{ $news->title }}</h1>
 
-                        </div>
-                        <div class="d-flex flex-wrap gap-2">
-
+                            @if($news->image)
+                                <div style="display: flex;justify-content: center; align-items: center;"><img src="{{ asset('storage/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}" style="max-width: 600px; text-align: center"></div>
+                            @endif
                             @if($news->categories->count())
                                 @foreach($news->categories as $category)
-                                    <a href="{{ route('category.show', $category->slug) }}" class="badge bg-primary text-white text-decoration-none me-1 px-3 py-2 rounded-pill">
+                                    <a href="{{ route('category.show', $category->slug) }}" class="badge text-center bg-primary text-white ">
                                         {{ $category->name }}
                                     </a>{{ !$loop->last ? '' : '' }}
                                 @endforeach
                             @else
-                                <span class="text-muted small">Без категория</span>
+                                <span class="text-muted small text-center">Без категория</span>
                             @endif
+                            <div class="lead text-center p-5">{!! nl2br(e($news->description)) !!}</div>
 
                         </div>
-                        <h1 class="card-title display-5 mb-4">{{ $news->title }}</h1>
-                        <div class="lead">{!! nl2br(e($news->description)) !!}</div>
+
                     </div>
-                    <div class="card-footer bg-white border-0 p-4">
-                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
-                            ← Назад
-                        </a>
-                    </div>
-                </article>
-            </div>
+                </div>
+
         </div>
 
 
