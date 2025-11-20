@@ -25,3 +25,8 @@ ul.navbar-nav li {
     align-items: center;
     justify-content: center;
 }
+
+h5.card-title {
+   margin: 0;
+}
+

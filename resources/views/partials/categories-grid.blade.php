@@ -1,6 +1,6 @@
 <div class="row">
     @forelse($categories as $category)
-        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6  mb-4">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 p-2">
             <a href="{{ route('category.show', $category->slug) }}" class="text-decoration-none">
             <div class="card h-100 shadow-sm text-center">
                 @if($category->image)
@@ -10,11 +10,9 @@
                         <span class="text-muted">Без снимка</span>
                     </div>
                 @endif
-                <div class="card-body">
+                <div class="card-body p-1">
                     <h5 class="card-title">
-
                             {{ $category->name }}
-
                     </h5>
                     <p class="text-muted small">
                         {{ $category->news_count }} новини
