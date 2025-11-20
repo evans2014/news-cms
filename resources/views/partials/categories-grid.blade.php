@@ -15,7 +15,7 @@
                             {{ $category->name }}
                     </h5>
                     <p class="text-muted small">
-                        {{ $category->news_count }} новини
+                        {{ $category->news_count }}
                     </p>
                 </div>
             </div></a>

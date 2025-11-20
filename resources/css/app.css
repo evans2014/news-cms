@@ -30,3 +30,9 @@ h5.card-title {
    margin: 0;
 }
 
+.cat-title {
+    font-size: 12px;
+}
+.cat-title span{
+    font-size: 10px;
+}
