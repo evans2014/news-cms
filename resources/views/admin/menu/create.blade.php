@@ -28,7 +28,7 @@
                                     <option value="">-- Избери тип --</option>
                                     <option value="page">Статична страница</option>
                                     <option value="category">Категория</option>
-                                    <option value="news">Новина</option>
+                                    <option value="news">Пост</option>
                                     <option value="external">Външен линк</option>
                                     <option value="internal">Вътрешен път (/privacy)</option>
                                 </select>

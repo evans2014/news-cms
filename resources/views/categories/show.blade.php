@@ -36,7 +36,7 @@
         </div>
         @empty
         <div class="col-12">
-            <p class="text-muted text-center">Няма новини в тази категория.</p>
+            <p class="text-muted text-center">Няма постове в тази категория.</p>
         </div>
         @endforelse
     </div>

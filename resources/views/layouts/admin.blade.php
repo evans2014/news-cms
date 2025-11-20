@@ -39,7 +39,7 @@
                     <span class="badge bg-success">{{ \App\Models\Page::count() }}</span>
                 </a>
                 <a href="{{ route('admin.news.index') }}" class="nav-link text-dark mb-2 {{ request()->routeIs('admin.news.*') ? 'active bg-primary text-white' : '' }} rounded px-3 py-2">
-                    <i class="fas fa-newspaper me-2"></i> Новини
+                    <i class="fas fa-newspaper me-2"></i> Постове
                     <span class="badge bg-success">{{ \App\Models\News::count() }}</span>
                 </a>
                 <a href="{{ route('admin.categories.index') }}" class="nav-link text-dark mb-2 {{ request()->routeIs('admin.categories.*') ? 'active bg-primary text-white' : '' }} rounded px-3 py-2">

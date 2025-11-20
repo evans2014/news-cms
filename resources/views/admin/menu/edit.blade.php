@@ -37,7 +37,7 @@
                                     <option value="">-- Избери тип --</option>
                                     <option value="page" {{ old('type', $item->type) == 'page' ? 'selected' : '' }}>Статична страница</option>
                                     <option value="category" {{ old('type', $item->type) == 'category' ? 'selected' : '' }}>Категория</option>
-                                    <option value="news" {{ old('type', $item->type) == 'news' ? 'selected' : '' }}>Новина</option>
+                                    <option value="news" {{ old('type', $item->type) == 'news' ? 'selected' : '' }}>Пост</option>
                                     <option value="external" {{ old('type', $item->type) == 'external' ? 'selected' : '' }}>Външен линк</option>
                                     <option value="internal" {{ old('type', $item->type) == 'internal' ? 'selected' : '' }}>Вътрешен път (/privacy)</option>
                                 </select>

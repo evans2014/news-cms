@@ -3,8 +3,8 @@
 @section('content')
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>Новини</h1>
-            <a href="{{ route('admin.news.create') }}" class="btn btn-primary">+ Нова новина</a>
+            <h1>Постове</h1>
+            <a href="{{ route('admin.news.create') }}" class="btn btn-primary">+ Нова постове</a>
         </div>
 
         @if(session('success'))
@@ -45,7 +45,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="4" class="text-center">Няма новини.</td></tr>
+                    <tr><td colspan="4" class="text-center">Няма постове.</td></tr>
                 @endforelse
                 </tbody>
             </table>
