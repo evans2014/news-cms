@@ -13,10 +13,10 @@
             <div class="mb-4">
                 <label>Картинка</label>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <img id="categoryImagePreview"
                              src="{{ old('image', $category->image ?? asset('images/no-image.jpg')) }}"
-                             class="img-thumbnail" style="width:100%; height:200px; object-fit:cover;">
+                             class="img-thumbnail" style="width:300px; height:auto; object-fit:cover;">
                     </div>
                     <div class="col-md-8">
                         <input type="hidden" name="image" id="categoryImageInput"
