@@ -4,9 +4,32 @@
     <div class="container mt-4">
         <div class="d-flex justify-content-between mb-3">
             <h1>Категории</h1>
-            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">+ Нова категория</a>
-        </div>
 
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form method="GET" action="{{ route('admin.categories.index') }}">
+                    <div class="input-group input-group-lg">
+                        <input type="text" name="search" class="form-control"
+                               placeholder="Търси категория..."
+                               value="{{ request('search') }}">
+                        <button class="btn btn-primary" type="submit">
+                            Търсене
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">
+                                Всички
+                            </a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="{{ route('admin.categories.create') }}" class="btn btn-success btn-lg">
+                    + Нова категория
+                </a>
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -16,12 +39,13 @@
             </tr>
             </thead>
             <tbody>
+
             @forelse($categories as $cat)
                 <tr>
                     <td>{{ $cat->name }}</td>
                     <td>
                         @if($cat->image)
-                            <img src="{{ asset('storage/' . $cat->image) }}" width="50">
+                            <img src="{{ $cat->image }}" width="50">
                         @else
                             <em>няма</em>
                         @endif
@@ -42,6 +66,9 @@
             @endforelse
             </tbody>
         </table>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $categories->links('pagination::bootstrap-5') }}
+        </div>
         <!-- Delete Confirmation Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">

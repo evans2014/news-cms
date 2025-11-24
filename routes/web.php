@@ -9,6 +9,7 @@ use App\Http\Controllers\NewsAjaxController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\PublicCategoryController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Models\Page;
 
 Route::get('/', function () {
@@ -63,6 +64,16 @@ Route::get('/admin', function () {
     return view('admin');
 })->middleware('admin');
 
+//Route::post('/admin/media/store', [MediaController::class, 'store'])->name('admin.media.store');
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::post('/media/store', [MediaController::class, 'store'])->name('media.store');
+});
+
+Route::delete('/admin/media', [MediaController::class, 'destroy'])->name('admin.media.destroy');
+
+Route::get('/admin/media/modal', [MediaController::class, 'modal'])
+    ->name('admin.media.modal');
 Route::get('/admin/users/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])
     ->name('admin.users.edit');
 

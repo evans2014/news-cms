@@ -1,10 +1,11 @@
 <div class="row">
     @forelse($categories as $category)
+
         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 p-2">
             <a href="{{ route('category.show', $category->slug) }}" class="text-decoration-none">
             <div class="card h-100 shadow-sm text-center">
                 @if($category->image)
-                    <img src="{{ asset('storage/' . $category->image) }}" class="card-img-top" style="height:auto;object-fit:cover;">
+                    <img src="{{ $category->image }}" class="card-img-top" style="height:auto;object-fit:cover;">
                 @else
                     <div class="bg-light border-dashed" style="height:auto;display:flex;align-items:center;justify-content:center;">
                         <span class="text-muted">Без снимка</span>

@@ -4,7 +4,30 @@
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1>Постове</h1>
-            <a href="{{ route('admin.news.create') }}" class="btn btn-primary">+ Нова постове</a>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form method="GET" action="{{ route('admin.news.index') }}">
+                    <div class="input-group input-group-lg">
+                        <input type="text" name="search" class="form-control"
+                               placeholder="Търси по заглавие..."
+                               value="{{ request('search') }}">
+                        <button class="btn btn-primary" type="submit">
+                            Търсене
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('admin.news.index') }}" class="btn btn-outline-secondary">
+                                Всички
+                            </a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="{{ route('admin.news.create') }}" class="btn btn-success btn-lg">
+                    + Нова новина
+                </a>
+            </div>
         </div>
 
         @if(session('success'))

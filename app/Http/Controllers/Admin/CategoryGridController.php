@@ -21,7 +21,7 @@ class CategoryGridController extends Controller
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        $categories = $query->withCount('news')->paginate(12);
+        $categories = $query->withCount('news')->paginate(24);
         $categories->appends($request->all());
 
         return response()->json([

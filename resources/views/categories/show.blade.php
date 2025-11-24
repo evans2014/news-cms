@@ -14,7 +14,7 @@
 
     <h1 class="display-5 mb-4">{{ $category->name }}</h1>
     @if($category->image)
-        <img src="{{ asset('storage/' . $category->image) }}" class="cat-img-top" style="height:auto;object-fit:cover;" alt="{{ $category->name }}">
+        <img src="{{ $category->image }}" class="cat-img-top" style="height:auto;object-fit:cover;" alt="{{ $category->name }}">
     @endif
     <p class="text-muted mb-4">{{ $category->news_count }}</p>
 

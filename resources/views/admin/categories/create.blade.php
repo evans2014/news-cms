@@ -13,6 +13,35 @@
                 <label>Изображение (по избор)</label>
                 <input type="file" name="image" class="form-control">
             </div>
+            <div class="mb-4">
+                <label>Картинка</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <img id="categoryImagePreview"
+                             src="{{ old('image', $category->image ?? asset('images/no-image.jpg')) }}"
+                             class="img-thumbnail" style="width:100%; height:200px; object-fit:cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <input type="hidden" name="image" id="categoryImageInput"
+                               value="{{ old('image', $category->image ?? '') }}">
+
+                        <button type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#mediaModal"
+                                onclick="window.currentImageField = 'category'">
+                            Избери снимка от библиотеката
+                        </button>
+                        @if(old('image', $category->image ?? ''))
+                            <button type="button" class="btn btn-outline-danger btn-sm ms-2"
+                                    onclick="document.getElementById('categoryImageInput').value='';
+                                 document.getElementById('categoryImagePreview').src='{{ asset('images/no-image.jpg') }}'">
+                                Премахни
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            </div>
             <button type="submit" class="btn btn-success">Създай</button>
         </form>
     </div>

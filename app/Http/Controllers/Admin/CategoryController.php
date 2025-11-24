@@ -9,33 +9,28 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::latest()->paginate(10);
-        return view('admin.categories.index', compact('categories'));
+        $search = $request->get('search');
+
+        $categories = Category::latest()
+            ->when($search, function($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
+
+       // return view('admin.categories.index', compact('categories'));
+        return response()
+            ->view('admin.categories.index', compact('categories'))
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
     }
 
     public function create()
     {
         return view('admin.categories.create');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:categories',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $data = ['name' => $request->name];
-
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('categories', 'public');
-        }
-
-        Category::create($data);
-
-        return redirect()->route('admin.categories.index')->with('success', 'Категорията е създадена!');
     }
 
     public function show(Category $category)
@@ -48,26 +43,23 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
+    public function store(Request $request)
+    {
+        $data = $request->only(['name', 'image']); // взимаме само тези две
+
+        Category::create($data);
+
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Категорията е създадена успешно!');
+    }
+
     public function update(Request $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $data = ['name' => $request->name];
-
-        if ($request->hasFile('image')) {
-            // Изтрий старото изображение
-            if ($category->image) {
-                Storage::disk('public')->delete($category->image);
-            }
-            $data['image'] = $request->file('image')->store('categories', 'public');
-        }
+        $data = $request->only(['name', 'image']);
 
         $category->update($data);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Категорията е обновена!');
+        return back()->with('success', 'Категорията е обновена!');
     }
 
     public function destroy(Category $category)
