@@ -26,31 +26,45 @@
                             </div>
 
                         </div>
-                        <div class="col-3">
-                            <div class="mb-3">
-                                <label class="form-label">Снимка</label>
-                                @if($news->image)
-                                    <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $news->image) }}" width="300" class="img-thumbnail">
-                                    </div>
-                                @endif
-                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
-                                @error('image') <div class="text-danger small">{{ $message }}</div> @enderror
+                          <div class="col-3 mb-4">
+                            <label class="form-label fw-bold">Картинка на новината</label>
+
+                            <div class="row g-4">
+                                <div class="row g-4">
+                                    <!-- Скрито поле за URL от библиотеката -->
+                                    <input type="hidden" name="image" id="newsImageInput"
+                                           value="{{ old('image', $news->image ?? '') }}">
+
+                                    <!-- Преглед на снимката -->
+                                    <img id="newsImagePreview"
+                                         src="{{ old('image', $news->image ?? asset('images/no-image.jpg')) }}"
+                                         class="img-thumbnail" style="width:100%; max-height:300px; object-fit:cover;">
+
+                                    <!-- Бутон за библиотеката -->
+                                    <button type="button" class="btn btn-primary mt-3"
+                                            data-bs-toggle="modal" data-bs-target="#mediaModal"
+                                            onclick="window.currentImageField = 'news'">
+                                        Избери от библиотеката
+                                    </button>
+
+                                    <!-- Премахни снимката -->
+                                    <button type="button" class="btn btn-danger mt-2"
+                                            onclick="document.getElementById('newsImageInput').value='';
+                document.getElementById('newsImagePreview').src='{{ asset('images/no-image.jpg') }}'">
+                                        Премахни
+                                    </button>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Категории <span class="text-danger">*</span></label>
-
-                                <select name="categories[]"
-                                        class="form-select @error('categories') is-invalid @enderror"
-                                        multiple
-                                        size="8"
-                                        required>
-                                    @foreach(\App\Models\Category::orderBy('name')->get() as $category)
-                                        <option value="{{ $category->id }}"
-                                                {{ isset($news) && $news->categories->contains($category->id) ? 'selected' : '' }}>
-                                            {{ $category->name }}
+                                <select name="category_id" class="form-select" required>
+                                    @foreach(\App\Models\Category::all() as $cat)
+                                        <option value="{{ $cat->id }}"
+                                                {{ old('category_id', $news->category_id ?? '') == $cat->id ? 'selected' : '' }}>
+                                            {{ $cat->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -65,9 +79,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="text-end">
                         <a href="{{ route('admin.news.index') }}" class="btn btn-secondary">Отказ</a>
                         <button type="submit" class="btn btn-primary">Запази промените</button>
@@ -76,4 +87,10 @@
             </div>
         </form>
     </div>
+    <script>
+      function clearNewsImage() {
+        document.getElementById('newsImageInput').value = '';
+        document.getElementById('newsImagePreview').src = '{{ asset('images/no-image.jpg') }}';
+      }
+    </script>
 @endsection

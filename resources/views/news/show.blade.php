@@ -17,7 +17,7 @@
                                 <a href="{{ route('news.show', $previous->id) }}" class="btn btn-outline-secondary prev">
                                     ← Предишен
                                     <img
-                                            src="{{ asset('storage/' . $previous->image) }}"
+                                            src="{{ $previous->image }}"
                                             alt="{{ $previous->title }}"
                                             class="rounded"
                                             style="width: 100px; height: auto; object-fit: cover;"
@@ -29,7 +29,7 @@
                             <h1 class="card-title display-5 text-center">{{ $news->title }}</h1>
 
                             @if($news->image)
-                                <div style="display: flex;justify-content: center; align-items: center;"><img src="{{ asset('storage/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}" style="max-width: 600px; text-align: center"></div>
+                                <div style="display: flex;justify-content: center; align-items: center;"><img src="{{ $news->image}}" class="card-img-top" alt="{{ $news->title }}" style="max-width: 600px; text-align: center"></div>
                             @endif
                             @if($news->categories->count())
                                 @foreach($news->categories as $category)
@@ -48,7 +48,7 @@
                                 <a href="{{ route('news.show', $next->id) }}" class="btn btn-outline-secondary next ">
                                     Следващ →
                                     <img
-                                            src="{{ asset('storage/' . $next->image) }}"
+                                            src="{{ $next->image }}"
                                             alt="{{ $next->title }}"
                                             class="rounded"
                                             style="width: 100px; height: auto; object-fit: cover;"

@@ -23,7 +23,7 @@
         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 ">
             <div class="card h-100 shadow-sm">
                 @if($item->image)
-                    <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                    <img src="{{ $item->image }}" class="card-img-top" style="height:200px; object-fit:cover;">
                 @endif
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ Str::limit($item->title, 50) }}</h5>

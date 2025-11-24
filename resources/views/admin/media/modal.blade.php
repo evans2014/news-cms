@@ -20,5 +20,17 @@
 @endforelse
 
 <div class="mt-4 d-flex justify-content-center">
-    {{ ($media ?? collect())->links('pagination::bootstrap-5') }}
+    {{ $media->onEachSide(1)->links() }}
 </div>
+
+<script>
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('a[rel="next"], a[rel="prev"], .pagination a')) {
+      e.preventDefault();
+      const url = e.target.closest('a').getAttribute('href');
+      if (url && url !== '#') {
+        loadMedia(url.split('?')[1] ? '?' + url.split('?')[1] : '');
+      }
+    }
+  });
+</script>

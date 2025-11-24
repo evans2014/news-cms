@@ -102,8 +102,6 @@
                         <input type="file" id="uploadInput" accept="image/*" class="form-control form-control-lg">
                     </div>
                 </div>
-
-                <!-- ТУК ЩЕ СЕ ЗАРЕЖДАТ СНИМКИТЕ -->
                 <div id="mediaContent" class="row text-center py-5 text-muted">
                     <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
                     <p class="mt-3">Зареждане на библиотеката...</p>
@@ -135,50 +133,33 @@
 </div>
 
 <script>
-  let deleteId = null;
-  let deleteEl = null;
 
-  function selectImage(url) {
-    const field = window.currentImageField || 'category'; // по подразбиране category
+  let isLoading = false;
 
-    if (field === 'category') {
-      document.getElementById('categoryImageInput').value = url;
-      document.getElementById('categoryImagePreview').src = url;
-    }
-    bootstrap.Modal.getInstance(document.getElementById('mediaModal')).hide();
-  }
+  function loadMedia(search = '', page = 1) {
+    if (isLoading) return;
+    isLoading = true;
 
-  function deleteMedia(id, el) {
-    deleteId = id;
-    deleteEl = el;
-    new bootstrap.Modal(document.getElementById('deleteMediaModal')).show();
-  }
+    const params = new URLSearchParams();
+    if (search) params.set('search', search);
+    if (page && page != 1) params.set('page', page);
 
-  document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-    fetch('{{ route("admin.media.destroy") }}', {
-      method: 'DELETE',
-      headers: {
-        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({id: deleteId})
+    fetch('{{ route("admin.media.modal") }}?' + params.toString(), {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-      .then(r => r.json())
-      .then(data => {
-        if (data.success) {
-          deleteEl.closest('.position-relative')?.remove();
-          bootstrap.Modal.getInstance(document.getElementById('deleteMediaModal')).hide();
-        }
-      });
-  });
-  function loadMedia(search = '') {
-    const url = '{{ route("admin.media.modal") }}' + (search ? '?search=' + encodeURIComponent(search) : '');
-    fetch(url)
       .then(r => r.text())
-      .then(html => document.getElementById('mediaContent').innerHTML = html);
+      .then(html => {
+        document.getElementById('mediaContent').innerHTML = html;
+        isLoading = false;
+      })
+      .catch(() => {
+        document.getElementById('mediaContent').innerHTML = '<div class="col-12 text-center py-5 text-danger">Грешка при зареждане</div>';
+        isLoading = false;
+      });
   }
-
-  document.getElementById('mediaSearch')?.addEventListener('input', e => loadMedia(e.target.value));
+  document.getElementById('mediaSearch')?.addEventListener('input', function() {
+    loadMedia(this.value.trim(), 1);
+  });
 
   document.getElementById('uploadInput')?.addEventListener('change', function(e) {
     const file = e.target.files[0];
@@ -187,6 +168,8 @@
     const fd = new FormData();
     fd.append('file', file);
 
+    document.getElementById('mediaContent').innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-primary"></div><p>Качване...</p></div>';
+
     fetch('{{ route("admin.media.store") }}', {
       method: 'POST',
       headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
@@ -194,15 +177,55 @@
     })
       .then(r => r.json())
       .then(data => {
-        if (data.url) loadMedia(document.getElementById('mediaSearch').value);
+        if (data.url) {
+          loadMedia(document.getElementById('mediaSearch').value.trim(), 1);
+        }
       });
   });
 
+  function selectImage(url) {
+    const field = window.currentImageField || 'category';
+    if (field === 'category') {
+      document.getElementById('categoryImageInput').value = url;
+      document.getElementById('categoryImagePreview').src = url;
+    }
+    if (field === 'news') {
+      document.getElementById('newsImageInput').value = url;
+      document.getElementById('newsImagePreview').src = url;
+    }
+    bootstrap.Modal.getInstance(document.getElementById('mediaModal')).hide();
+  }
+
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+
+    if (!link || !link.href || link.href.includes('#') || link.href.includes('javascript:')) return;
+
+    const href = link.getAttribute('href');
+
+    if (href.includes('admin/media/modal') ||
+      href.includes('search=') ||
+      href.includes('page=')) {
+
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      const url = new URL(href, window.location.origin);
+      const search = url.searchParams.get('search') || '';
+      const page = url.searchParams.get('page') || 1;
+
+      loadMedia(search, page);
+
+      return false;
+    }
+  }, true);
+
+
   document.getElementById('mediaModal').addEventListener('shown.bs.modal', function () {
-    loadMedia(document.getElementById('mediaSearch').value || '');
+    loadMedia('', 1);
   });
 </script>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>

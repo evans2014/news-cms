@@ -34,7 +34,7 @@ class NewsController extends Controller
 
     }
 
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|max:255',
@@ -53,7 +53,46 @@ class NewsController extends Controller
         ]);
         $news->categories()->sync($request->categories);
         return redirect()->route('admin.news.index')->with('success', 'Новината е създадена!');
+    }*/
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'required',
+            'image'       => 'nullable|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        News::create([
+            'title'       => $request->title,
+            'description' => $request->description,
+            'image'       => $request->image,
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('admin.news.index')
+            ->with('success', 'Новината е създадена успешно!');
     }
+
+    public function update(Request $request, News $news)
+    {
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'required',
+            'image'       => 'nullable|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $news->update([
+            'title'       => $request->title,
+            'description' => $request->description,
+            'image'       => $request->image,
+            'category_id' => $request->category_id,
+        ]);
+
+        return back()->with('success', 'Новината е обновена успешно!');
+    }
+
     public function show(News $news)
     {
         return view('admin.news.show', compact('news'));
@@ -65,12 +104,13 @@ class NewsController extends Controller
         return view('admin.news.edit', compact('news', 'categories'));
     }
 
-    public function update(Request $request, News $news)
+   /* public function update(Request $request, News $news)
     {
         $request->validate([
             'title'       => 'required|string|max:255',
             'description' => 'required',
-            'image'       => 'nullable|image|max:2048',
+           // 'image'       => 'nullable|image|max:2048',
+            'image'       => 'nullable|url',
             'categories'  => 'required|array|min:1',
             'categories.*'=> 'exists:categories,id',
         ]);
@@ -89,7 +129,8 @@ class NewsController extends Controller
 
         return redirect()->route('admin.news.index')
             ->with('success', 'Новината е обновена успешно!');
-    }
+    }*/
+
 
     public function destroy(News $news)
     {

@@ -47,13 +47,17 @@
                 <tbody>
                 @forelse($news as $item)
                     <tr>
-                        <td><img src="{{ asset('storage/' . $item->image) }}" width="50" height="50" style="object-fit: cover;"></td>
+                        <td><img src="{{ $item->image }}" width="50" height="50" style="object-fit: cover;"></td>
                         <td>{{ Str::limit($item->title, 50) }}</td>
-                        <td>@forelse($item->categories as $cat)
-                                <span class="badge bg-primary me-1">{{ $cat->name }}</span>
-                            @empty
-                                <span class="text-muted small">Без категория</span>
-                            @endforelse</td>
+
+                        <td>
+                            @if($item->category)
+                                <span class="badge bg-primary fs-6">{{ $item->category->name }}</span>
+                            @else
+                                <span class="text-muted">Без категория</span>
+                            @endif
+                        </td>
+
                         <td>
                             <a href="{{ route('admin.news.show', $item) }}" class="btn btn-sm btn-info">Виж</a>
                             <a href="{{ route('admin.news.edit', $item) }}" class="btn btn-sm btn-warning">Редактирай</a>
