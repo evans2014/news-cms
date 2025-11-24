@@ -9,13 +9,6 @@
                 <label>Име</label>
                 <input type="text" name="name" class="form-control" value="{{ $category->name }}">
             </div>
-            <div class="mb-3">
-                @if($category->image)
-                    <img src="{{ asset('storage/' . $category->image) }}" width="100" class="mb-2"><br>
-                @endif
-                <label>Ново изображение</label>
-                <input type="file" name="image" class="form-control">
-            </div>
             <div class="mb-4">
                 <label>Картинка</label>
                 <div class="row">

@@ -9,10 +9,7 @@
                 <label>Име</label>
                 <input type="text" name="name" class="form-control" value="{{ old('name') }}">
             </div>
-            <div class="mb-3">
-                <label>Изображение (по избор)</label>
-                <input type="file" name="image" class="form-control">
-            </div>
+
             <div class="mb-4">
                 <label>Картинка</label>
                 <div class="row">
