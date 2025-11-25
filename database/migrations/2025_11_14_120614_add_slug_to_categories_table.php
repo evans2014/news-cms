@@ -12,9 +12,6 @@ return new class extends Migration
             if (!Schema::hasColumn('categories', 'slug')) {
                 $table->string('slug', 255)->after('name')->nullable();
             }
-
-            // Ако искаш и unique (след като поправиш дубликатите)
-            // $table->unique('slug');
         });
     }
 

@@ -59,7 +59,6 @@
               }
             });
 
-            // КОПИРА В <textarea> ПРИ ВСЯКА ПРОМЯНА
             editor.on('change keyup paste', function () {
               const content = editor.getContent();
               document.getElementById('tinymce-editor').value = content;

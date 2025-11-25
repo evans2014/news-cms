@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->string('name');           // оригинално име
-            $table->string('path');           // /storage/media/123.jpg
-            $table->string('url');            // пълен URL
+            $table->string('name');
+            $table->string('path');
+            $table->string('url');
             $table->string('mime_type');
             $table->unsignedBigInteger('size');
             $table->unsignedBigInteger('uploaded_by')->nullable();

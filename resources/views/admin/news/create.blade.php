@@ -18,32 +18,20 @@
                 @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-           <!-- <div class="mb-3">
-                <label class="form-label">Изображение</label>
-                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
-                @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div> -->
             <div class="mb-4">
                 <label class="form-label fw-bold">Картинка на новината</label>
 
                 <div class="row g-4">
-                    <!-- Скрито поле за URL от библиотеката -->
                     <input type="hidden" name="image" id="newsImageInput"
                            value="{{ old('image', $news->image ?? '') }}">
-
-                    <!-- Преглед на снимката -->
                     <img id="newsImagePreview"
                          src="{{ old('image', $news->image ?? asset('images/no-image.jpg')) }}"
                          class="img-thumbnail" style="width:100%; max-height:300px; object-fit:cover;">
-
-                    <!-- Бутон за библиотеката -->
                     <button type="button" class="btn btn-primary mt-3"
                             data-bs-toggle="modal" data-bs-target="#mediaModal"
                             onclick="window.currentImageField = 'news'">
                         Избери от библиотеката
                     </button>
-
-                    <!-- Премахни снимката -->
                     <button type="button" class="btn btn-danger mt-2"
                             onclick="document.getElementById('newsImageInput').value='';
                 document.getElementById('newsImagePreview').src='{{ asset('images/no-image.jpg') }}'">
@@ -70,8 +58,6 @@
                 </select>
                 @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
-
-
 
             <button type="submit" class="btn btn-success">Създай</button>
             <a href="{{ route('admin.news.index') }}" class="btn btn-secondary">Назад</a>

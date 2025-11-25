@@ -27,7 +27,6 @@
                 @endif
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ Str::limit($item->title, 50) }}</h5>
-                    <!-- <p class="text-muted small">{{ $item->created_at->format('d.m.Y') }}</p> -->
                     <a href="{{ route('news.show', $item->id) }}" class="btn btn-outline-primary mt-auto">
                         Прочети
                     </a>

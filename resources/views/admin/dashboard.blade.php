@@ -5,7 +5,6 @@
 
 @section('content')
     <div class="row g-4">
-        <!-- БРОЙ КАТЕГОРИИ -->
         <div class="col-md-6 col-lg-4">
             <div class="card border-start border-primary border-4 shadow-sm">
                 <div class="card-body d-flex align-items-center">
@@ -25,7 +24,6 @@
             </div>
         </div>
 
-        <!-- БРОЙ НОВИНИ -->
         <div class="col-md-6 col-lg-4">
             <div class="card border-start border-success border-4 shadow-sm">
                 <div class="card-body d-flex align-items-center">
@@ -45,7 +43,6 @@
             </div>
         </div>
 
-        <!-- БРОЙ СТРАНИЦИ (по желание) -->
         <div class="col-md-6 col-lg-4">
             <div class="card border-start border-warning border-4 shadow-sm">
                 <div class="card-body d-flex align-items-center">
@@ -65,8 +62,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Последни добавени новини (по желание) -->
     <div class="mt-5">
         <h4 class="mb-4">Последни новини</h4>
         <div class="table-responsive">

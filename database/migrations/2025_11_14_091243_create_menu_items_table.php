@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('url')->nullable();
             $table->string('type'); // 'page', 'news', 'category', 'external'
-            $table->unsignedBigInteger('target_id')->nullable(); // ID на страница/новина/категория
+            $table->unsignedBigInteger('target_id')->nullable();
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

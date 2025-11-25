@@ -13,6 +13,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Paginator::useBootstrapFive();  // ← ТОЗИ РЕД ГАРАНТИРА BOOTSTRAP 5 ПАГИНАЦИЯ
+        Paginator::useBootstrapFive();
     }
 }

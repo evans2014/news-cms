@@ -12,7 +12,7 @@ return new class extends Migration
             $table->string('target_type')->nullable()->after('type');
         });
 
-        // Попълваме target_type от type (еднократно)
+
         \DB::statement("UPDATE menu_items SET target_type = CONCAT(UPPER(SUBSTRING(type, 1, 1)), SUBSTR(type, 2), 's') WHERE type IN ('page','news','category') AND target_id IS NOT NULL");
         \DB::statement("UPDATE menu_items SET target_type = 'App\\\\Models\\\\Page' WHERE type = 'page'");
         \DB::statement("UPDATE menu_items SET target_type = 'App\\\\Models\\\\Category' WHERE type = 'category'");

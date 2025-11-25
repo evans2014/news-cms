@@ -56,16 +56,14 @@
           convert_urls: true,
           setup: function (editor) {
             editor.on('init', function () {
-              // Ако има съдържание от old() или DB
               const initialContent = editor.getElement().value;
               if (initialContent) {
                 editor.setContent(initialContent);
               }
             });
 
-            // КОПИРА В <textarea> ПРИ ВСЯКА ПРОМЯНА
             editor.on('change keyup paste', function () {
-              editor.save(); // ← КЛЮЧОВО!
+              editor.save();
             });
           }
         });

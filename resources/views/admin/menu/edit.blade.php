@@ -7,7 +7,6 @@
             <div class="col-12">
                 <h1 class="h3 mb-4 text-gray-800">Редактиране на меню елемент</h1>
 
-                {{-- Сигурно взимаме променливата --}}
                 @php
                     $item = $menuItem ?? $menu ?? null;
                     if (!$item) {
@@ -22,7 +21,6 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
 
-                            <!-- Заглавие -->
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Заглавие <span class="text-danger">*</span></label>
                                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
@@ -30,7 +28,6 @@
                                 @error('title') <div class="text-danger small">{{ $message }}</div> @enderror
                             </div>
 
-                            <!-- Тип -->
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Тип линк <span class="text-danger">*</span></label>
                                 <select name="type" id="menu-type" class="form-select" required>
@@ -42,16 +39,12 @@
                                     <option value="internal" {{ old('type', $item->type) == 'internal' ? 'selected' : '' }}>Вътрешен път (/privacy)</option>
                                 </select>
                             </div>
-
-                            <!-- Динамично поле за target_id -->
                             <div id="target-field" class="mb-4" style="display: none;">
                                 <label id="target-label" class="form-label fw-bold">Избери елемент</label>
                                 <select name="target_id" id="target-select" class="form-select">
                                     <option value="">-- Зарежда се... --</option>
                                 </select>
                             </div>
-
-                            <!-- Поле за URL -->
                             <div id="url-field" class="mb-4" style="display: none;">
                                 <label class="form-label fw-bold">Път / URL <span class="text-danger">*</span></label>
                                 <input type="text" id="url-display" class="form-control mb-2"
@@ -59,8 +52,6 @@
                                 <input type="hidden" name="url" id="url-hidden" value="{{ old('url', $item->url) }}">
                                 <small id="url-hint" class="text-muted"></small>
                             </div>
-
-                            <!-- Родител -->
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Родителски елемент</label>
                                 <select name="parent_id" class="form-select">

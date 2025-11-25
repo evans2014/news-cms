@@ -20,41 +20,6 @@ class PageController extends Controller
         return view('admin.pages.create');
     }
 
-
-  /*  public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'slug'  => 'required|string|unique:pages,slug|max:255',
-            'content' => 'nullable|string',
-        ]);
-
-        Page::create([
-            'title'   => $request->title,
-            'slug'    => $request->slug,
-            'content' => $request->content ?? '',
-        ]);
-
-        return redirect()->route('admin.pages.index')->with('success', 'Страницата е създадена!');
-    }
-
-    public function update(Request $request, Page $page)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'slug'  => 'required|string|unique:pages,slug,' . $page->id . '|max:255',
-            'content' => 'nullable|string',
-        ]);
-
-        $page->update([
-            'title'   => $request->title,
-            'slug'    => $request->slug,
-            'content' => $request->content ?? '',
-        ]);
-
-        return redirect()->route('admin.pages.index')->with('success', 'Страницата е обновена!');
-    }*/
-
     public function store(Request $request)
     {
         $validated = $request->validate([

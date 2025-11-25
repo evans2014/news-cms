@@ -19,11 +19,6 @@ class MenuController extends Controller
 
     public function create()
     {
-       /* $menuItems = MenuItem::all();
-        $pages = Page::all();
-        $categories = Category::orderBy('name')->get();
-        $recentNews = News::latest()->take(50)->get();*/
-
         $menuItems   = MenuItem::whereNull('parent_id')->with('children')->orderBy('order')->get();
         $pages       = \App\Models\Page::all();
         $categories  = \App\Models\Category::orderBy('name')->get();
@@ -55,7 +50,6 @@ class MenuController extends Controller
             'order'     => MenuItem::where('parent_id', $request->parent_id)->max('order') + 1,
         ];
 
-        // Почистваме internal пътя
         if ($request->type === 'internal' && $request->url) {
             $path = parse_url($request->url, PHP_URL_PATH) ?: $request->url;
             $data['url'] = match($request->type) {
@@ -63,7 +57,7 @@ class MenuController extends Controller
                 default => null
             };
         }
-        // В store() и update() метода
+
         $data['url'] = match($request->type) {
             'internal', 'external' => $request->url,
             default => null
