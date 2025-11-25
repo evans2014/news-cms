@@ -32,6 +32,7 @@ Built from scratch. By one developer. To the very last pixel.
 
 ## Installation (Local Development)
 
+
 ```bash
 git clone <your-repo-or-just-copy-the-folder>
 cd news-cms
