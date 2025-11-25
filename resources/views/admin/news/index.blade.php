@@ -78,7 +78,9 @@
             </table>
         </div>
 
-        {{ $news->links() }}
+        <div class="mt-5 d-flex justify-content-center">
+            {{ $news->links() }}
+        </div>
     </div>
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1">

@@ -66,8 +66,9 @@
             @endforelse
             </tbody>
         </table>
-        <div class="d-flex justify-content-center mt-4">
-            {{ $categories->links('pagination::bootstrap-5') }}
+
+         <div class="mt-5 d-flex justify-content-center">
+            {{ $categories->links() }}
         </div>
         <!-- Delete Confirmation Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1">

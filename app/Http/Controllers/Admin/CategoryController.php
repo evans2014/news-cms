@@ -20,7 +20,6 @@ class CategoryController extends Controller
             ->paginate(10)
             ->appends(['search' => $search]);
 
-       // return view('admin.categories.index', compact('categories'));
         return response()
             ->view('admin.categories.index', compact('categories'))
             ->header('Cache-Control', 'no-cache, no-store, must-revalidate')

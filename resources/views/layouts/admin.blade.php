@@ -196,7 +196,7 @@
     bootstrap.Modal.getInstance(document.getElementById('mediaModal')).hide();
   }
 
-  document.addEventListener('click', function(e) {
+  document.getElementById('mediaContent')?.addEventListener('click', function(e) {
     const link = e.target.closest('a');
 
     if (!link || !link.href || link.href.includes('#') || link.href.includes('javascript:')) return;
@@ -221,9 +221,11 @@
     }
   }, true);
 
-
-  document.getElementById('mediaModal').addEventListener('shown.bs.modal', function () {
+ /* document.getElementById('mediaModal').addEventListener('shown.bs.modal', function () {
     loadMedia('', 1);
+  });*/
+  document.getElementById('mediaModal')?.addEventListener('shown.bs.modal', function () {
+    loadMedia();
   });
 </script>
 
@@ -248,6 +250,34 @@
       };
       document.body.appendChild(toggleBtn);
     }
+  });
+</script>
+<script>
+  function deleteMedia(id, element) {
+    window.mediaToDelete = { id: id, element: element };
+    new bootstrap.Modal(document.getElementById('deleteMediaModal')).show();
+  }
+  document.getElementById('confirmDeleteBtn')?.addEventListener('click', function () {
+    if (!window.mediaToDelete) return;
+
+    fetch(`/admin/media/${window.mediaToDelete.id}`, {   // ← ТУК Е ПРАВИЛНИЯТ ПЪТ С ID В URL-А
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          window.mediaToDelete.element.closest('.position-relative')?.remove();
+          bootstrap.Modal.getInstance(document.getElementById('deleteMediaModal')).hide();
+        } else {
+          alert('Грешка: ' + (data.message || 'Неуспешно изтриване'));
+        }
+      })
+      .catch(() => alert('Няма връзка със сървъра!'));
   });
 </script>
 </body>

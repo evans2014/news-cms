@@ -1,7 +1,7 @@
 @forelse($media ?? [] as $m)
     <div class="col-4 col-md-3 col-lg-2 position-relative">
-        <img src="{{ $m->url }}" 
-             class="img-thumbnail shadow-sm" 
+        <img src="{{ $m->url }}"
+             class="img-thumbnail shadow-sm"
              style="height:130px; width:100%; object-fit:cover; cursor:pointer"
              onclick="selectImage('{{ $m->url }}')">
 
@@ -11,7 +11,9 @@
                 onclick="event.stopPropagation(); deleteMedia({{ $m->id }}, this)">
             <i class="bi bi-trash-fill"></i>
         </button>
+
     </div>
+
 @empty
     <div class="col-12 text-center py-5 text-muted">
         <h5>Няма качени снимки</h5>

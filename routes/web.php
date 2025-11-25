@@ -70,7 +70,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('/media/store', [MediaController::class, 'store'])->name('media.store');
 });
 
-Route::delete('/admin/media', [MediaController::class, 'destroy'])->name('admin.media.destroy');
+//Route::delete('/admin/media', [MediaController::class, 'destroy'])->name('admin.media.destroy');
+Route::delete('/admin/media/{media}', [MediaController::class, 'destroy'])
+    ->name('admin.media.destroy');
 
 Route::get('/admin/media/modal', [MediaController::class, 'modal'])
     ->name('admin.media.modal');
