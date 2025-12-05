@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             $news = News::create([
                 'title'       => \Faker\Factory::create('bg_BG')->realText(60),
                 'description' => \Faker\Factory::create('bg_BG')->paragraphs(rand(3,8), true),
-                'image'       => '/images/og-default.jpg', // или null
+                'image'       => '/images/og-default.jpg', 
             ]);
 
 
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
 
 
         $firstThreeCategories = \App\Models\Category::orderBy('id')->limit(3)->pluck('id')->toArray();
-        $news->categories()->sync($firstThreeCategories); // sync() или syncWithoutDetaching() – и двете работят
+        $news->categories()->sync($firstThreeCategories);
 
         // 4. Static pages
         Page::firstOrCreate(
