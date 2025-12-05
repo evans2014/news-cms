@@ -33,7 +33,22 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Име</th>
+                <th>
+                    <a href="{{ route('admin.categories.index', array_merge(request()->all(), [
+                        'sort' => 'name',
+                        'direction' => ($sort === 'name' && $direction === 'asc') ? 'desc' : 'asc'
+                    ])) }}">
+                        Име
+                        @if($sort === 'name')
+                            @if($direction === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+
                 <th>Изображение</th>
                 <th>Действия</th>
             </tr>

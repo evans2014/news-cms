@@ -9,23 +9,33 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+
     public function index(Request $request)
     {
         $search = $request->get('search');
 
-        $categories = Category::latest()
-            ->when($search, function($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%");
-            })
+        $sort = $request->get('sort', 'name');
+        $direction = $request->get('direction', 'asc');
+
+        $categories = Category::when($search, function($query) use ($search) {
+            $query->where('name', 'like', "%{$search}%");
+        })
+            ->orderBy($sort, $direction)
             ->paginate(10)
-            ->appends(['search' => $search]);
+            ->appends([
+                'search' => $search,
+                'sort' => $sort,
+                'direction' => $direction
+            ]);
 
         return response()
-            ->view('admin.categories.index', compact('categories'))
+            ->view('admin.categories.index', compact('categories', 'sort', 'direction'))
             ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
             ->header('Pragma', 'no-cache')
             ->header('Expires', '0');
     }
+
+
 
     public function create()
     {

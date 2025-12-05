@@ -39,12 +39,26 @@
                 <thead>
                 <tr>
                     <th>Изображение</th>
-                    <th>Заглавие</th>
+                    <th>
+                        <a href="{{ route('admin.news.index', array_merge(request()->all(), [
+                        'sort' => 'title',
+                        'direction' => ($sort === 'title' && $direction === 'asc') ? 'desc' : 'asc'
+                    ])) }}">
+                            Заглавие
+                            @if($sort === 'title')
+                                @if($direction === 'asc')
+                                    ▲
+                                @else
+                                    ▼
+                                @endif
+                            @endif
+                        </a></th>
                     <th>Категория</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
+
                 @forelse($news as $item)
                     <tr>
                         <td>

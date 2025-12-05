@@ -1,9 +1,17 @@
 @forelse($media ?? [] as $m)
     <div class="col-4 col-md-3 col-lg-2 position-relative">
-        <img src="{{ $m->url }}"
+        @php
+            $count = substr_count($m->url, '/storage/');
+            if ($count > 1) {
+                $url = \Illuminate\Support\Str::replaceFirst('/storage/', '', $m->url);
+            } else {
+                $url = $m->url;
+            }
+        @endphp
+        <img src="{{ $url}}"
              class="img-thumbnail shadow-sm"
              style="height:130px; width:100%; object-fit:cover; cursor:pointer"
-             onclick="selectImage('{{ $m->url }}')">
+             onclick="selectImage('{{ $url }}')">
 
         <button type="button"
                 class="btn btn-danger rounded-circle position-absolute top-0 end-0 m-2 shadow-lg"

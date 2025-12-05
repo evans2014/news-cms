@@ -13,20 +13,28 @@ use App\Models\Category;
 class NewsController extends Controller
 {
 
+
     public function index(Request $request)
     {
         $search = $request->get('search');
+        $sort   = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
 
-        $news = News::latest()
-            ->when($search, function($query) use ($search) {
-                $query->where('title', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
-            })
+        $news = News::when($search, function($query) use ($search) {
+            $query->where('title', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%");
+        })
+            ->orderBy($sort, $direction)
             ->paginate(10)
-            ->appends(['search' => $search]);
+            ->appends([
+                'search' => $search,
+                'sort'   => $sort,
+                'direction' => $direction
+            ]);
 
-        return view('admin.news.index', compact('news'));
+        return view('admin.news.index', compact('news', 'sort', 'direction'));
     }
+
 
     public function create()
     {
@@ -42,7 +50,7 @@ class NewsController extends Controller
             'image'       => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
         ]);
-        
+
         $news = News::create([
             'title' => $request->title,
             'description' => $request->description,
