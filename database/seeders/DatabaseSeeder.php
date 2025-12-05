@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         // 50 real-looking news items
         for ($i = 0; $i < 4; $i++) {
             $news = News::create([
-                'title'       => \Faker\Factory::create('bg_BG')->realText(60),
-                'description' => \Faker\Factory::create('bg_BG')->paragraphs(rand(3,8), true),
+                'title'       => \Faker\Factory::create('bg_BG')->realText(10),
+                'description' => \Faker\Factory::create('bg_BG')->paragraphs(rand(1,2), true),
                 'image'       => '/images/og-default.jpg',
             ]);
 
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        $firstThreeCategories = \App\Models\Category::orderBy('id')->limit(3)->pluck('id')->toArray();
+        $firstThreeCategories = \App\Models\Category::orderBy('id')->limit(1)->pluck('id')->toArray();
         $news->categories()->sync($firstThreeCategories);
 
         // 4. Static pages
