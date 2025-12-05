@@ -42,13 +42,7 @@ class NewsController extends Controller
             'image'       => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
         ]);
-
-        /*News::create([
-            'title'       => $request->title,
-            'description' => $request->description,
-            'image'       => $request->image,
-            'category_id' => $request->category_id,
-        ]);*/
+        
         $news = News::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -56,7 +50,6 @@ class NewsController extends Controller
             'category_id' => $request->category_id, // <-- записва в news
         ]);
 
-        // Запис в пивот таблица
         $news->categories()->attach($request->category_id);
 
         return redirect()->route('admin.news.index')
@@ -73,11 +66,14 @@ class NewsController extends Controller
         ]);
 
         $news->update([
-            'title'       => $request->title,
+            'title' => $request->title,
             'description' => $request->description,
-            'image'       => $request->image,
+            'image' => $request->image,
             'category_id' => $request->category_id,
         ]);
+
+        $news->categories()->sync($request->category_id);
+
 
         return back()->with('success', 'Новината е обновена успешно!');
     }
