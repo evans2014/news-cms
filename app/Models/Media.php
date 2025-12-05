@@ -15,7 +15,7 @@ class Media extends Model
             return Storage::url($this->path);
         }
 
-        return asset('images/file-icon.png');
+        return asset('/images/og-default.jpg');
     }
 
     public function getUrlAttribute()

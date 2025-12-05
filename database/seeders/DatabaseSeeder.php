@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // 1. Админ потребител
+        // 1. Admin user
         User::firstOrCreate(
             ['email' => 'admin@news.com'],
             [
@@ -21,29 +21,29 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2. ПЪРВО категориите (задължително преди новините!)
+        // 2. Categories FIRST (required before news!)
         $this->call(CategorySeeder::class);
 
-        // 3. Създаваме една тестова новина
-        // 50 реални на вид новини
-        for ($i = 0; $i < 20; $i++) {
+        // 3. We create a test news item
+        // 50 real-looking news items
+        for ($i = 0; $i < 2; $i++) {
             $news = News::create([
                 'title'       => \Faker\Factory::create('bg_BG')->realText(60),
                 'description' => \Faker\Factory::create('bg_BG')->paragraphs(rand(3,8), true),
-                'image'       => 'news/placeholder.jpg', // или null
+                'image'       => '/images/og-default.jpg', // или null
             ]);
 
-            // Случайно слагаме 1–4 категории
+
             $news->categories()->sync(
                 \App\Models\Category::inRandomOrder()->limit(rand(1,4))->pluck('id')->toArray()
             );
         }
 
-        // 4. Слагаме я в първите 3 категории (по ред на създаване)
+
         $firstThreeCategories = \App\Models\Category::orderBy('id')->limit(3)->pluck('id')->toArray();
         $news->categories()->sync($firstThreeCategories); // sync() или syncWithoutDetaching() – и двете работят
 
-        // 5. Статични страници
+        // 4. Static pages
         Page::firstOrCreate(
             ['slug' => 'about-us'],
             [
