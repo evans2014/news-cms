@@ -12,10 +12,6 @@ class News extends Model
     protected $fillable = ['title', 'description', 'image', 'category_id'];
 
 
-    /*public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }*/
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -25,6 +21,7 @@ class News extends Model
     {
         return $this->belongsToMany(Category::class, 'category_news');
     }
+
 
 
     protected static function boot()

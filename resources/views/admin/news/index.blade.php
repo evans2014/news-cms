@@ -47,7 +47,13 @@
                 <tbody>
                 @forelse($news as $item)
                     <tr>
-                        <td><img src="{{ $item->image }}" width="50" height="50" style="object-fit: cover;"></td>
+                        <td>
+                            @if($item->image)
+                                <img src="{{ $item->image }}" width="50" height="50" style="object-fit: cover;">
+                            @else
+                                <img src="{{ asset('images/no-image.jpg') }}" width="50" height="50" style="object-fit: cover;">
+                            @endif
+                        </td>
                         <td>{{ Str::limit($item->title, 50) }}</td>
 
                         <td>

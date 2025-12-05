@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
 
         // 3. We create a test news item
         // 50 real-looking news items
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $news = News::create([
                 'title'       => \Faker\Factory::create('bg_BG')->realText(60),
                 'description' => \Faker\Factory::create('bg_BG')->paragraphs(rand(3,8), true),
-                'image'       => '/images/og-default.jpg', 
+                'image'       => '/images/og-default.jpg',
             ]);
 
 

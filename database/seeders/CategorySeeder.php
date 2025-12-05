@@ -10,13 +10,13 @@ class CategorySeeder extends Seeder
 // database/seeders/CategorySeeder.php
     public function run()
     {
-        $categories = ['Спорт'];
+        $categories = ['Тест','Тест2','Тест3','Тест4'];
 
         foreach ($categories as $name) {
             \App\Models\Category::create([
                 'name' => $name,
                 'slug' => \Illuminate\Support\Str::slug($name),
-                'image'       => '/images/og-default.jpg', // или null
+                'image'       => '/images/og-default.jpg',
             ]);
         }
     }

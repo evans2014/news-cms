@@ -47,7 +47,7 @@
                         @if($cat->image)
                             <img src="{{ $cat->image }}" width="50">
                         @else
-                            <em>няма</em>
+                            <img src="{{ asset('images/no-image.jpg') }}" width="50">
                         @endif
                     </td>
                     <td> <a href="{{ route('admin.categories.show', $cat) }}" class="btn btn-sm btn-info">Виж</a>

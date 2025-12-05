@@ -43,12 +43,21 @@ class NewsController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        News::create([
+        /*News::create([
             'title'       => $request->title,
             'description' => $request->description,
             'image'       => $request->image,
             'category_id' => $request->category_id,
+        ]);*/
+        $news = News::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' => $request->image,
+            'category_id' => $request->category_id, // <-- записва в news
         ]);
+
+        // Запис в пивот таблица
+        $news->categories()->attach($request->category_id);
 
         return redirect()->route('admin.news.index')
             ->with('success', 'Новината е създадена успешно!');
