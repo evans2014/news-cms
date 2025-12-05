@@ -36,7 +36,7 @@ class CategoryController extends Controller
     {
         $category = Category::where('slug', $slug)->with('news')->firstOrFail();
 
-        $news = $category->news()->latest()->paginate(9);
+        $news = $category->news()->latest()->paginate(12);
 
         return view('categories.show', compact('category', 'news'));
     }

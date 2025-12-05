@@ -42,3 +42,32 @@ php artisan key:generate
 php artisan migrate --seed   # optional: creates admin user if you have a seeder
 php artisan storage:link
 php artisan serve
+
+
+
+For import need to add in .env
+
+WP_DB_CONNECTION=mysql_wp
+WP_DB_HOST=127.0.0.1
+WP_DB_PORT=3306
+WP_DB_DATABASE=webex_bier1
+WP_DB_USERNAME=root
+WP_DB_PASSWORD=
+
+Add to config/database.php
+
+'mysql_wp' => [
+            'driver' => 'mysql',
+            'host' => env('WP_DB_HOST', '127.0.0.1'),
+            'port' => env('WP_DB_PORT', '3306'),
+            'database' => env('WP_DB_DATABASE', 'forge'),
+            'username' => env('WP_DB_USERNAME', 'forge'),
+            'password' => env('WP_DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'strict' => false,
+            'engine' => null,
+        ],
+
+
+command : php artisan import:wordpress
