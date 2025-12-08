@@ -48,7 +48,7 @@
                         @endif
                     </a>
                 </th>
-
+                <th>Брой постове</th>
                 <th>Изображение</th>
                 <th>Действия</th>
             </tr>
@@ -58,6 +58,7 @@
             @forelse($categories as $cat)
                 <tr>
                     <td>{{ $cat->name }}</td>
+                    <td>{{ $cat->news_count }}</td>
                     <td>
                         @if($cat->image)
                             <img src="{{ $cat->image }}" width="50">
@@ -65,6 +66,7 @@
                             <img src="{{ asset('images/no-image.jpg') }}" width="50">
                         @endif
                     </td>
+
                     <td> <a href="{{ route('admin.categories.show', $cat) }}" class="btn btn-sm btn-info">Виж</a>
                         <a href="{{ route('admin.categories.edit', $cat) }}" class="btn btn-sm btn-warning">Редактирай</a>
                         <form action="{{ route('admin.categories.destroy', $cat) }}" method="POST" class="d-inline">

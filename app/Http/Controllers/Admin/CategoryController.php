@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $sort = $request->get('sort', 'name');
         $direction = $request->get('direction', 'asc');
 
-        $categories = Category::when($search, function($query) use ($search) {
+     /*   $categories = Category::when($search, function($query) use ($search) {
             $query->where('name', 'like', "%{$search}%");
         })
             ->orderBy($sort, $direction)
@@ -26,7 +26,21 @@ class CategoryController extends Controller
                 'search' => $search,
                 'sort' => $sort,
                 'direction' => $direction
+            ]);*/
+
+        $categories = Category::withCount('news')
+            ->when($search, function($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->orderBy($sort, $direction)
+            ->paginate(10)
+            ->appends([
+                'search' => $search,
+                'sort' => $sort,
+                'direction' => $direction
             ]);
+
+
 
         return response()
             ->view('admin.categories.index', compact('categories', 'sort', 'direction'))
