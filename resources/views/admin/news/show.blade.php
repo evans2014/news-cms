@@ -24,7 +24,6 @@
                         @endif
                     </div>
                 </div>
-                <hr>
                 <a href="{{ route('admin.news.index') }}" class="btn btn-secondary">Назад</a>
                 <a href="{{ route('admin.news.edit', $news) }}" class="btn btn-warning">Редактирай</a>
             </div>

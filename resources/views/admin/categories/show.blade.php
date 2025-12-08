@@ -12,7 +12,7 @@
                         {{ $category->name }}
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 p-2">
                         <strong>Снимка:</strong><br>
                         @if($category->image)
                             <img src="{{ $category->image }}" class="img-thumbnail" style="max-height:200px;">
@@ -21,7 +21,7 @@
                         @endif
                     </div>
                 </div>
-                <hr>
+
                 <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Назад</a>
                 <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-warning">Редактирай</a>
             </div>
