@@ -23,7 +23,9 @@
         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 ">
             <div class="card h-100 shadow-sm pt-3">
                 @if($item->image)
+                    <a href="{{ route('news.show', $item->id) }}" class="mt-auto">
                     <img src="{{ $item->image }}" class="card-img-top" style="height:200px; object-fit:contain;">
+                    </a>
                 @endif
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ Str::limit($item->title, 50) }}</h5>
