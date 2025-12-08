@@ -47,8 +47,6 @@ class PageController extends Controller
         return back()->with('success', 'Страницата е обновена!');
     }
 
-
-
     public function edit(Page $page)
     {
         return view('admin.pages.edit', compact('page'));
