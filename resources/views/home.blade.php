@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="container mt-4 ">
         <h1>Последни новини</h1>
         <div class="mb-3">
-            <input type="text" id="search" class="form-control" placeholder="Търси новини...">
+            <input type="text" id="search" class="form-control" placeholder="Търси...">
         </div>
         <div id="news-grid" class="row"></div>
-        <div id="pagination" class="mt-4"></div>
+        <div id="pagination" class="mt-4 pb-5 d-flex justify-content-center"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -19,12 +19,12 @@
           method: 'GET',
           data: { page: page, search: search },
           success: function(data) {
-            $('#news-grid').html(data.html || '<p class="text-muted text-center">Няма новини.</p>');
+            $('#news-grid').html(data.html || '<p class="text-muted text-center">Няма постове.</p>');
             $('#pagination').html(data.pagination || '');
           },
           error: function(xhr) {
             console.error(xhr.responseText);
-            $('#news-grid').html('<div class="col-12 text-center text-danger">Грешка при зареждане на новини.</div>');
+            $('#news-grid').html('<div class="col-12 text-center text-danger">Грешка при зареждане на постове.</div>');
           }
         });
       }

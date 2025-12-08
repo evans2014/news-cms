@@ -8,7 +8,7 @@
              </h5>
              @if($item->image)
                  <a href="{{ route('news.show', $item->id) }}" class="p-2">
-                 <img src="{{ $item->image }}" class="card-img-top" style="height:200px;object-fit:cover;" alt="{{ $item->title }}">
+                 <img src="{{ $item->image }}" class="card-img-top" style="height:200px;object-fit:contain;" alt="{{ $item->title }}">
                  </a>
              @endif
              <div class="card-body d-flex flex-column">
