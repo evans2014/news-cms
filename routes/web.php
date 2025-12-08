@@ -55,7 +55,9 @@ Route::get('/category/{slug}', [App\Http\Controllers\CategoryController::class, 
 Route::get('/categories/ajax', [App\Http\Controllers\CategoryAjaxController::class, 'index'])
     ->name('categories.ajax');
 
-Route::post('/admin/pages/upload', [App\Http\Controllers\Admin\PageController::class, 'upload'])->name('admin.pages.upload');
+Route::post('/admin/pages/upload', [App\Http\Controllers\Admin\PageController::class, 'upload'])
+    ->middleware('web')
+    ->name('admin.pages.upload');
 // Показване на категория по slug
 Route::post('/admin/registration', [App\Http\Controllers\Admin\UserController::class, 'registerStore'])
     ->name('register.store');
@@ -138,6 +140,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         'menu' => 'menuItem' // ← КЛЮЧОВО! Laravel ще търси $menuItem в контролера
     ]);
 });
+
+
 Route::get('/{slug}', function ($slug) {
     $page = \App\Models\Page::where('slug', $slug)->firstOrFail();
     return view('pages.show', compact('page'));
@@ -147,8 +151,11 @@ Route::get('/admin/registration', [UserController::class, 'registration'])->name
 
 
 // Статични страници – ВИНАГИ НАКРАЯ!
-Route::get('/{slug}', [PageController::class, 'show'])
+Route::get('/{slug}', [App\Http\Controllers\Frontend\PageController::class, 'show'])
     ->where('slug', '[a-z0-9-]+')
     ->name('page.show');
+
+// Frontend routes
+///Route::get('/pages/{slug}', [App\Http\Controllers\Frontend\PageController::class, 'show'])->name('pages.show');
 
 require __DIR__.'/auth.php';

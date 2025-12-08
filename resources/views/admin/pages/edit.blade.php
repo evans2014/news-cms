@@ -20,6 +20,7 @@
                         id="tinymce-editor"
                         class="form-control d-none"
                 >{{ old('content', $page->content ?? '') }}</textarea>
+
             </div>
             <button type="submit" class="btn btn-success">Обнови</button>
             <a href="{{ route('admin.pages.index') }}" class="btn btn-secondary">Назад</a>
@@ -39,8 +40,40 @@
           toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | link image media | code | fullscreen',
           branding: false,
           promotion: false,
-          images_upload_url: '{{ route("admin.pages.upload") }}',
-          automatic_uploads: true,
+          images_upload_handler: function (blobInfo, progress) {
+            return new Promise(function (resolve, reject) {
+              let xhr = new XMLHttpRequest();
+              xhr.open('POST', '{{ route("admin.pages.upload") }}');
+              xhr.withCredentials = true;
+
+              xhr.setRequestHeader(
+                'X-CSRF-TOKEN',
+                document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              );
+
+              xhr.upload.onprogress = function (e) {
+                progress(e.loaded / e.total * 100);
+              };
+
+              xhr.onload = function () {
+                if (xhr.status < 200 || xhr.status >= 300) {
+                  reject('HTTP Error: ' + xhr.status);
+                  return;
+                }
+                let json = JSON.parse(xhr.responseText);
+                resolve(json.location);
+              };
+
+              xhr.onerror = function () {
+                reject('Image upload failed');
+              };
+
+              let formData = new FormData();
+              formData.append('file', blobInfo.blob());
+              xhr.send(formData);
+            });
+          },
+        // automatic_uploads: true,
           file_picker_types: 'image',
           relative_urls: false,
           remove_script_host: false,

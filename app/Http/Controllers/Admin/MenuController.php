@@ -118,20 +118,6 @@ class MenuController extends Controller
         return back()->with('success', 'Елементът е изтрит!');
     }
 
-    /*public function reorder(Request $request)
-    {
-        $items = $request->input('order', []);
-
-        foreach ($items as $index => $item) {
-            MenuItem::where('id', $item['id'])->update([
-                'parent_id' => $item['parent_id'],     // може да е null
-                'position'  => $index + 1              // поредността в списъка
-            ]);
-        }
-
-        return response()->json(['status' => 'success']);
-    }*/
-
     public function reorder(Request $request)
     {
         $items = $request->order;

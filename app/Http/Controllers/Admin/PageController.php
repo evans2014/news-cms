@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -25,10 +26,10 @@ class PageController extends Controller
         $validated = $request->validate([
             'title'   => 'required|string|max:255',
             'slug'    => 'required|string|unique:pages,slug',
-            'content' => 'required|string',   // ← задължително!
+            'content' => 'required|string',
         ]);
 
-        Page::create($validated);   // ← всичко (вкл. content) се записва автоматично
+        Page::create($validated);
 
         return redirect()->route('admin.pages.index')->with('success', 'Страницата е създадена!');
     }
@@ -46,6 +47,8 @@ class PageController extends Controller
         return back()->with('success', 'Страницата е обновена!');
     }
 
+
+
     public function edit(Page $page)
     {
         return view('admin.pages.edit', compact('page'));
@@ -60,13 +63,16 @@ class PageController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'file' => 'image|max:4096',
         ]);
 
-        $path = $request->file('file')->store('pages', 'public');
+        $file = $request->file('file');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $path = $file->storeAs('uploads', $filename, 'public');
 
         return response()->json([
-            'location' => asset('storage/' . $path)
+            'location' => Storage::url($path)
         ]);
     }
 

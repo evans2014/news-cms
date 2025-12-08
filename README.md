@@ -44,6 +44,10 @@ php artisan storage:link
 php artisan serve
 
 
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+
 
 For import need to add in .env
 
