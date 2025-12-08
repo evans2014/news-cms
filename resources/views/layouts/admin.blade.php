@@ -21,6 +21,7 @@
             <div class="d-flex align-items-center mb-4">
                 <i class="fas fa-user-shield text-primary me-2"></i>
                 <div>
+
                     <strong>{{ auth()->user()->name }}</strong><br>
                     <small class="text-muted">Администратор</small>
                 </div>
