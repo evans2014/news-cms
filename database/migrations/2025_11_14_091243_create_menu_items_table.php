@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('type'); // 'page', 'news', 'category', 'external'
             $table->unsignedBigInteger('target_id')->nullable();
             $table->integer('order')->default(0);
+            $table->unsignedBigInteger('parent_id')->nullable()->after('id');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -24,4 +25,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('menu_items');
     }
+
+
 };
