@@ -2,11 +2,16 @@
 
 @section('content')
     <div class="container mt-4">
-        <div class="d-flex justify-content-between mb-3">
+        <div class="row mb-4">
+        <div class="col-md-6 mb-3">
             <h1>Страници</h1>
+
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="{{ route('admin.pages.trash') }}" class="btn btn-warning">🗑 Trash</a>
             <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">+ Нова страница</a>
         </div>
-
+        </div>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -51,7 +56,6 @@
                     </div>
                     <div class="modal-body text-center py-4">
                         <p class="lead">Сигурен ли си, че искаш да изтриеш този запис?</p>
-                        <p class="text-muted">Това действие е необратимо!</p>
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
@@ -61,7 +65,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger px-5">
-                                Да, изтрий завинаги
+                                Да, изтрий
                             </button>
                         </form>
                     </div>

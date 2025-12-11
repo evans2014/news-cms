@@ -103,4 +103,23 @@ class NewsController extends Controller
         return redirect()->route('admin.news.index')->with('success', 'Новината е изтрита!');
     }
 
+    public function trash()
+    {
+        $news = News::onlyTrashed()->get();
+        return view('admin.news.trash', compact('news'));
+    }
+
+    public function restore($id)
+    {
+        News::withTrashed()->where('id', $id)->restore();
+        return redirect()->route('admin.news.trash')->with('success', 'Успешно възстановено!');
+    }
+
+    public function forceDelete($id)
+    {
+        News::withTrashed()->where('id', $id)->forceDelete();
+        return redirect()->route('admin.news.trash')->with('success', 'Изтрито завинаги!');
+    }
+
+
 }

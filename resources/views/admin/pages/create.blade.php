@@ -33,8 +33,10 @@
         menubar: true,
         relative_urls: false,
         remove_script_host: false,
-        plugins: 'image link media code lists',
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | image | code',
+       // plugins: 'image link media code lists',
+        //toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | image | code',
+        plugins: 'code table lists image link media ',
+        toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table',
 
         // Връзка към Laravel upload
         images_upload_handler: function (blobInfo, progress) {
@@ -67,8 +69,6 @@
           });
         }
         ,
-
-
         // File picker за Insert Image
         file_picker_types: 'image',
         file_picker_callback: function(callback, value, meta) {
@@ -94,6 +94,7 @@
           }
         }
       });
+
     </script>
 
 @endsection

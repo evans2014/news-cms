@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->longText('content')->nullable();
+            $table->dropSoftDeletes();
             $table->timestamps();
         });
     }

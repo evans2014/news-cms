@@ -25,6 +25,7 @@
                 </form>
             </div>
             <div class="col-md-6 text-end">
+                <a href="{{ route('admin.categories.trash') }}" class="btn btn-warning btn-lg">🗑 Trash</a>
                 <a href="{{ route('admin.categories.create') }}" class="btn btn-success btn-lg">
                     + Нова категория
                 </a>
@@ -99,7 +100,6 @@
                     </div>
                     <div class="modal-body text-center py-4">
                         <p class="lead">Сигурен ли си, че искаш да изтриеш този запис?</p>
-                        <p class="text-muted">Това действие е необратимо!</p>
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
@@ -109,7 +109,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger px-5">
-                                Да, изтрий завинаги
+                                Да, изтрий
                             </button>
                         </form>
                     </div>

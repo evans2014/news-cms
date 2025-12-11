@@ -18,8 +18,7 @@ Route::get('/', function () {
 
 Route::get('/', [NewsAjaxController::class, 'index'])->name('home');
 
-// AJAX за новини
-//Route::get('/news-ajax', [NewsAjaxController::class, 'ajax'])->name('news.ajax');
+// AJAX for news
 Route::get('/news/ajax', [App\Http\Controllers\NewsAjaxController::class, 'ajax'])
     ->name('news.ajax');
 // Статични страници
@@ -32,8 +31,6 @@ Route::get('/contact', function () {
     $page = Page::where('slug', 'contact')->firstOrFail();
     return view('pages.show', compact('page'));
 })->name('contact');
-
-
 
 Route::get('/login', function () {
     return 'Admin dashboard';
@@ -68,11 +65,24 @@ Route::get('/admin', function () {
 
 //Route::post('/admin/media/store', [MediaController::class, 'store'])->name('admin.media.store');
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('categories/trash', [CategoryController::class, 'trash'])
+        ->name('categories.trash');
+    Route::post('categories/{id}/restore', [CategoryController::class, 'restore'])
+        ->name('categories.restore');
+    Route::delete('categories/{id}/force-delete', [CategoryController::class, 'forceDelete'])
+        ->name('categories.forceDelete');
     Route::resource('categories', CategoryController::class);
+
+    Route::get('news/trash', [NewsController::class, 'trash'])->name('news.trash');
+    Route::post('news/{id}/restore', [NewsController::class, 'restore'])->name('news.restore');
+    Route::delete('news/{id}/force-delete', [NewsController::class, 'forceDelete'])->name('news.forceDelete');
     Route::post('/media/store', [MediaController::class, 'store'])->name('media.store');
+
+    Route::get('pages/trash', [PageController::class, 'trash'])->name('pages.trash');
+    Route::post('pages/{id}/restore', [PageController::class, 'restore'])->name('pages.restore');
+    Route::delete('pages/{id}/force-delete', [PageController::class, 'forceDelete'])->name('pages.forceDelete');
 });
 
-//Route::delete('/admin/media', [MediaController::class, 'destroy'])->name('admin.media.destroy');
 Route::delete('/admin/media/{media}', [MediaController::class, 'destroy'])
     ->name('admin.media.destroy');
 
@@ -89,38 +99,11 @@ Route::patch('/admin/users/{user}/toggle', [UserController::class, 'toggleAdmin'
     ->middleware('admin');
 Route::prefix('admin')->middleware(['admin'])->group(function () {
 
-    // ТОВА Е КЛЮЧОВОТО: admin.dashboard
+    // admin.dashboard
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
-    Route::resource('news', NewsController::class)->names([
-        'index' => 'news.index',
-        'create' => 'news.create',
-        'store' => 'news.store',
-        'show' => 'news.show',
-        'edit' => 'news.edit',
-        'update' => 'news.update',
-        'destroy' => 'news.destroy',
-    ]);
-
-    Route::resource('categories', CategoryController::class)->names([
-        'index' => 'categories.index',
-        'create' => 'categories.create',
-        'store' => 'categories.store',
-        'show' => 'categories.show',
-        'edit' => 'categories.edit',
-        'update' => 'categories.update',
-        'destroy' => 'categories.destroy',
-    ]);
-    Route::resource('pages', PageController::class)->names([
-        'index' => 'pages.index',
-        'create' => 'pages.create',
-        'store' => 'pages.store',
-        'edit' => 'pages.edit',
-        'update' => 'pages.update',
-        'destroy' => 'pages.destroy',
-    ]);
 });
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     Route::get('/', fn() => view('admin.dashboard'))->name('dashboard');
@@ -129,6 +112,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('pages', PageController::class);
     Route::resource('users', UserController::class);
 });
+
 
 Route::get('/news-ajax', [App\Http\Controllers\NewsAjaxController::class, 'ajax'])->name('news.ajax');
 Route::get('/news/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
@@ -141,7 +125,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     ]);
 });
 
-
 Route::get('/{slug}', function ($slug) {
     $page = \App\Models\Page::where('slug', $slug)->firstOrFail();
     return view('pages.show', compact('page'));
@@ -150,7 +133,7 @@ Route::get('/{slug}', function ($slug) {
 Route::get('/admin/registration', [UserController::class, 'registration'])->name('registration');
 
 
-// Статични страници – ВИНАГИ НАКРАЯ!
+// Static pages – ALWAYS FINALLY!
 Route::get('/{slug}', [App\Http\Controllers\Frontend\PageController::class, 'show'])
     ->where('slug', '[a-z0-9-]+')
     ->name('page.show');

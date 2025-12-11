@@ -94,4 +94,23 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.categories.index')->with('success', 'Категорията е изтрита!');
     }
+
+    public function trash()
+    {
+        $categories = Category::onlyTrashed()->get();
+        return view('admin.categories.trash', compact('categories'));
+    }
+
+    public function restore($id)
+    {
+        Category::withTrashed()->where('id', $id)->restore();
+        return redirect()->route('admin.categories.trash')->with('success', 'Категория възстановена!');
+    }
+
+    public function forceDelete($id)
+    {
+        Category::withTrashed()->where('id', $id)->forceDelete();
+        return redirect()->route('admin.categories.trash')->with('success', 'Категория изтрита завинаги!');
+    }
+
 }

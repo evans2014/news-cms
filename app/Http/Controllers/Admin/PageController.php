@@ -79,4 +79,27 @@ class PageController extends Controller
         $page->delete();
         return redirect()->route('admin.pages.index')->with('success', 'Страницата е изтрита!');
     }
+
+   // Trash
+    public function trash()
+    {
+        $pages = Page::onlyTrashed()->get();
+        return view('admin.pages.trash', compact('pages'));
+    }
+
+    // Restore
+    public function restore($id)
+    {
+        $page = Page::withTrashed()->findOrFail($id);
+        $page->restore();
+        return redirect()->route('admin.pages.trash')->with('success', 'Page restored successfully!');
+    }
+
+    // Delete Forever
+    public function forceDelete($id)
+    {
+        $page = Page::withTrashed()->findOrFail($id);
+        $page->forceDelete();
+        return redirect()->route('admin.pages.trash')->with('success', 'Page deleted permanently!');
+    }
 }
