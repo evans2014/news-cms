@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('title', $news->title . ' - Collection CMS')
+
 @section('content')
     <div class="container py-5">
         <div class="row">
+            <div class="card bg-white border-0">
+                @include('partials.breadcrumbs')
+            </div>
+            <div class="col-lg-12 mx-auto p-0">
 
-            <div class="col-lg-8 mx-auto">
-                <div class="card card border-0 shadow-sm">
-                    <div class="row g-0">
-                        <div class="card-footer bg-white border-0 p-4">
-                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
-                                ← Назад
-                            </a>
-                        </div>
-                        <div class="col-lg-2 mx-auto middle-button p-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="row ">
+
+                        <div class="col-lg-2 mx-auto middle-button">
                             @if($previous)
                                 <a href="{{ route('news.show', $previous->id) }}" class="btn btn-outline-secondary prev">
                                     ← Предишен

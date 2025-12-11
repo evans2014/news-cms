@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb" class="bg-light py-3 border-bottom">
+<nav aria-label="breadcrumb" class="bg-white py-2 m-0 border-bottom">
     <div class="container">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
@@ -11,7 +11,7 @@
                 {{-- Автоматични breadcrumbs за най-честите страници --}}
                 @if(request()->routeIs('news.show'))
                     <li class="breadcrumb-item">
-                        <a href="{{ route('home') }}" class="text-decoration-none">Новини</a>
+                        <a href="{{ route('home') }}" class="text-decoration-none">Постове</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         {{ Str::limit($news->title ?? '', 40) }}
